@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!--
+        Précision décimale propre au module.
+        Le nom est volontairement différent de "Product Unit of Measure" (Odoo 18)
+        et de "Product Unit" (Odoo 19) : l'attribut `digits` d'un champ Float est
+        résolu par NOM de decimal.precision, pas par XML id. Cette précision
+        fonctionne donc à l'identique sur Odoo 18 et Odoo 19.
+    -->
+    <record id="decimal_fne_quantity" model="decimal.precision">
+        <field name="name">FNE Quantité Article</field>
+        <field name="digits">3</field>
+    </record>
+</odoo>

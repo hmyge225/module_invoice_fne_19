@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Vue pour les lignes d'articles -->
+    <record id="refund_certify_wizard_line_tree" model="ir.ui.view">
+        <field name="name">refund.certify.wizard.line.tree</field>
+        <field name="model">refund.certify.wizard.line</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <!--
+                    `readonly="1"` est porté par la VUE et non par le modèle :
+                    le client web Odoo retire du payload d'enregistrement les
+                    champs `readonly` du modèle, ce qui faisait perdre les
+                    identifiants FNE des lignes à la création du wizard.
+                -->
+                <field name="is_matched" readonly="1" string="Identifié FNE" width="90px"/>
+                <field name="item_id" readonly="1" string="ID FNE" width="150px"/>
+                <field name="item_reference" readonly="1" string="Référence" width="110px"/>
+                <field name="item_name" readonly="1" string="Description" width="300px"/>
+                <field name="original_quantity" readonly="1" string="Qté Originale" width="110px"/>
+                <field name="new_quantity" string="Qté Avoir" width="110px"
+                       decoration-warning="new_quantity != original_quantity"
+                       decoration-success="new_quantity == original_quantity"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vue principale du wizard -->
+    <record id="refund_certify_wizard_form" model="ir.ui.view">
+        <field name="name">refund.certify.wizard.form</field>
+        <field name="model">refund.certify.wizard</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Certifier Facture d'Avoir">
+                <header>
+                    <button name="action_certify_refund" string="Certifier" type="object" class="btn-primary"/>
+                    <button string="Annuler" class="btn-secondary" special="cancel"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>Certification Facture d'Avoir</h1>
+                    </div>
+                    <group>
+                        <group string="Informations Facture">
+                            <field name="credit_note_id" readonly="1"/>
+                            <field name="original_invoice"/>
+                            <field name="fne_original_invoice_id" readonly="1"/>
+                            <field name="original_invoice_reference" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <div invisible="not origin_warning" class="alert alert-warning" role="alert">
+                        <field name="origin_warning" nolabel="1" readonly="1"/>
+                    </div>
+
+                    <notebook>
+                        <page string="Articles à Certifier">
+                            <p class="text-muted">Les quantités sont automatiquement récupérées de la facture d'avoir. Vous pouvez les modifier si nécessaire.</p>
+                            <p class="text-muted">Seuls les articles identifiés « Identifié FNE » peuvent être envoyés à la FNE.</p>
+                            <field name="item_line_ids" widget="one2many" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

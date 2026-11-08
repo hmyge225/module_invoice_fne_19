@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fne_send_wizard_form" model="ir.ui.view">
+        <field name="name">fne.send.wizard.form</field>
+        <field name="model">fne.send.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Envoyer à la FNE">
+                <sheet>
+                    <group>
+                        <group string="Informations de base">
+                            <field name="invoice_type"/>
+                            <field name="payment_method"/>
+                            <field name="template"/>
+                        
+                        </group>
+            
+                    </group>
+                    
+                    <group>
+                        <group string="Reçu">
+                            <field name="is_rne"/>
+                            <field name="rne" invisible="not is_rne" required="is_rne"/>
+                        </group>
+                    </group>
+                    
+                    <group>
+                        <group string="Informations client">
+                            <field name="client_company_name"/>
+                            <field name="client_phone" placeholder="Exemple: 225272249000 (SANS + ni Espaces)"/>
+                            <field name="client_email" placeholder="Exemple: nom@domaine.com"/>
+                            <field name="client_ncc" required="template == 'B2B'"/>
+                            <field name="client_seller_name"/>
+                        </group>
+                        <group string="Établissement">
+                            <field name="establishment"/>
+                            <field name="point_of_sale"/>
+                        </group>
+                    </group>
+                    
+                    <group>
+                        <group string="Messages">
+                            <field name="commercial_message" widget="text"/>
+                            <field name="footer" widget="text"/>
+                        </group>
+                        <group string="Devise étrangère">
+                            <field name="foreign_currency" 
+                                   placeholder="Sélectionner une devise..."
+                                   required="template == 'B2F'"/>
+                            <field name="foreign_currency_rate" 
+                                   invisible="not foreign_currency" 
+                                   required="template == 'B2F' or foreign_currency"
+                                   placeholder="Ex: 1.2345"/>
+                            <div invisible="template != 'B2F'" class="text-danger">
+                                <small><strong>Obligatoire pour les transactions B2F avec devises différentes</strong></small>
+                            </div>
+                            <div invisible="not foreign_currency or template == 'B2F'" class="text-muted">
+                                <small>Obligatoire si une devise étrangère est sélectionnée</small>
+                            </div>
+                        </group>
+                    </group>
+
+                    <!-- Information sur les taxes automatiques -->
+                    <group>
+                        <div class="alert alert-info" role="status">
+                            <strong>Taxes automatiques</strong><br/>
+                            Les taxes de chaque article seront automatiquement récupérées depuis la configuration Odoo de chaque produit.
+                        </div>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_send_to_fne" string="Envoyer à la FNE" type="object" class="btn-primary"/>
+                    <button string="Annuler" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    
+    <record id="action_fne_send_wizard" model="ir.actions.act_window">
+        <field name="name">Envoyer à la FNE</field>
+        <field name="res_model">fne.send.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

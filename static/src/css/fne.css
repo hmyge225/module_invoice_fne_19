@@ -1,0 +1,182 @@
+/* --------------------------------------------------------------------------
+ * Module FNE — panneau d'information FNE
+ *
+ * Parti pris : sobriété. Fond neutre, une seule couleur d'accent (orange FNE),
+ * une bordure d'accent à gauche qui porte le statut, des valeurs en chasse
+ * fixe pour les identifiants, et des libellés en petites capitales grises.
+ * Aucune bordure bleue, aucun dégradé, aucune ombre colorée.
+ * -------------------------------------------------------------------------- */
+
+.o_fne_panel {
+    --fne-accent: #e8730c;
+    --fne-border: #e4e7ec;
+    --fne-muted: #667085;
+    --fne-text: #1d2939;
+    --fne-surface: #fcfcfd;
+
+    display: block;
+    margin: 16px 0 24px;
+    padding: 0;
+    border: 1px solid var(--fne-border);
+    border-left: 3px solid var(--fne-accent);
+    border-radius: 8px;
+    background: var(--fne-surface);
+    overflow: hidden;
+}
+
+/* ---------------------------------------------------------------- En-tête */
+
+.o_fne_panel_head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--fne-border);
+    background: #ffffff;
+}
+
+.o_fne_panel_title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--fne-text);
+}
+
+/* Badge de statut : petit, sobre, jamais fluorescent.
+   Bootstrap applique `!important` sur les utilitaires `text-bg-*` :
+   il faut donc en faire autant pour l'emporter. */
+.o_fne_status .badge {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+}
+
+.o_fne_status .text-bg-success {
+    background-color: #e8f5ec !important;
+    color: #1e7b34 !important;
+    border-color: #b9e0c4;
+}
+
+.o_fne_status .text-bg-info {
+    background-color: #e8f1fb !important;
+    color: #1b5fa8 !important;
+    border-color: #bcd8f2;
+}
+
+.o_fne_status .text-bg-danger {
+    background-color: #fdecec !important;
+    color: #b42318 !important;
+    border-color: #f5c2c0;
+}
+
+.o_fne_status .text-bg-300 {
+    background-color: #f2f4f7 !important;
+    color: var(--fne-muted) !important;
+    border-color: var(--fne-border);
+}
+
+/* ------------------------------------------------------------------ Lignes */
+
+.o_fne_rows {
+    padding: 4px 0;
+}
+
+.o_fne_row {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 7px 18px;
+}
+
+.o_fne_row + .o_fne_row {
+    border-top: 1px solid #f2f4f7;
+}
+
+.o_fne_label {
+    flex: 0 0 150px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--fne-muted);
+}
+
+.o_fne_value {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 13px;
+    color: var(--fne-text);
+}
+
+/* Les identifiants FNE (référence, NCC) sont des codes : chasse fixe. */
+.o_fne_value_code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.01em;
+}
+
+/* Le lien de vérification peut être long : il doit passer à la ligne. */
+.o_fne_row_wide .o_fne_value {
+    overflow-wrap: anywhere;
+}
+
+.o_fne_value .o_field_widget {
+    width: 100%;
+}
+
+/* Odoo stylise `.o_form_uri` (couleur #528099) : on l'aligne sur la
+   palette du panneau, avec une spécificité supérieure à `.o_form_view .o_form_uri`. */
+.o_form_view .o_fne_value .o_form_uri,
+.o_form_view .o_fne_value .o_form_uri > span,
+.o_form_view .o_fne_value .o_form_uri > span:first-child {
+    color: #175cd3;
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(23, 92, 211, 0.28);
+    transition: border-color 0.15s ease;
+}
+
+.o_form_view .o_fne_value .o_form_uri:hover,
+.o_form_view .o_fne_value .o_form_uri:focus,
+.o_form_view .o_fne_value .o_form_uri > span:hover,
+.o_form_view .o_fne_value .o_form_uri > span:first-child:hover {
+    color: #175cd3;
+    border-bottom-color: #175cd3;
+}
+
+/* Champ texte en lecture seule dans une cellule : pas de bordure de saisie. */
+.o_fne_value .o_input {
+    border: none;
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+}
+
+.o_fne_value_error {
+    color: #b42318;
+    font-size: 12.5px;
+    line-height: 1.5;
+}
+
+.o_fne_value_error .o_input {
+    color: inherit;
+}
+
+/* ----------------------------------------------------------- Adaptations */
+
+/* Sur petit écran, libellé au-dessus de la valeur. */
+@media (max-width: 767px) {
+    .o_fne_row {
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .o_fne_label {
+        flex: none;
+    }
+}

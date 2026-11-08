@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="fne_response_viewer_form" model="ir.ui.view">
+        <field name="name">fne.response.viewer.form</field>
+        <field name="model">fne.response.viewer</field>
+        <field name="arch" type="xml">
+            <form string="Réponse FNE Complète">
+                <header>
+                    <button string="Fermer" class="btn-secondary" special="cancel"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="invoice_name" readonly="1"/>
+                        </h1>
+                        <h3>
+                            Référence FNE: <field name="fne_reference" readonly="1"/>
+                        </h3>
+                    </div>
+
+                    <group string="Informations principales">
+                        <group>
+                            <field name="token"/>
+                            <field name="reference"/>
+                        </group>
+                        <group>
+                            <field name="url" widget="url"/>
+                            <field name="ncc"/>
+                            <field name="status_code"/>
+                        </group>
+                    </group>
+
+                    <group string="Réponse JSON complète">
+                        <field name="response_data" widget="text" nolabel="1"
+                               class="fne-json-response"
+                               options="{'resizable': true}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

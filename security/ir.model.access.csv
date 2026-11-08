@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fne_send_wizard_user,fne.send.wizard.user,model_fne_send_wizard,account.group_account_user,1,1,1,1
+access_fne_send_wizard_manager,fne.send.wizard.manager,model_fne_send_wizard,account.group_account_manager,1,1,1,1
+access_refund_certify_wizard_user,refund.certify.wizard.user,model_refund_certify_wizard,account.group_account_user,1,1,1,1
+access_refund_certify_wizard_manager,refund.certify.wizard.manager,model_refund_certify_wizard,account.group_account_manager,1,1,1,1
+access_refund_certify_wizard_line_user,refund.certify.wizard.line.user,model_refund_certify_wizard_line,account.group_account_user,1,1,1,1
+access_refund_certify_wizard_line_manager,refund.certify.wizard.line.manager,model_refund_certify_wizard_line,account.group_account_manager,1,1,1,1
+access_fne_response_viewer_user,fne.response.viewer.user,model_fne_response_viewer,account.group_account_user,1,1,1,1
+access_fne_response_viewer_manager,fne.response.viewer.manager,model_fne_response_viewer,account.group_account_manager,1,1,1,1
