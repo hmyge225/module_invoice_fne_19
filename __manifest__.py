@@ -1,7 +1,7 @@
 {
     'name': 'Module Invoice FNE - Odoo 19',
     'summary': "Certification des factures et des factures d'avoir auprès de la FNE (Côte d'Ivoire)",
-    'version': '19.0.1.0.5',
+    'version': '19.0.1.0.6',
     'category': 'Accounting',
     'license': 'LGPL-3',
     'author': 'SecurGuard',
@@ -20,8 +20,13 @@
         'python': ['requests'],
     },
     'assets': {
+        # Le chemin est déclaré en glob et non en fichier unique : si la
+        # feuille de style est momentanément introuvable sur le disque
+        # (fenêtre de déploiement sur un bind mount), Odoo l'ignore avec un
+        # simple avertissement au lieu de faire échouer la compilation de
+        # tout le bundle backend (« Erreur de style » sur toute l'application).
         'web.assets_backend': [
-            'module_invoice_fne_v19/static/src/css/fne.css',
+            'module_invoice_fne_v19/static/src/css/*.css',
         ],
     },
     'installable': True,
